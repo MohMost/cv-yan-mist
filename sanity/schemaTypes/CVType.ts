@@ -46,6 +46,14 @@ export const resumeType = defineType({
           title: "Localisation",
           type: "string",
         }),
+        defineField({
+          name: "photo",
+          title: "Photo",
+          type: "image", // You can also use a custom SVG input type if you have a plugin
+          options: {
+            hotspot: true,
+          },
+        }),
       ],
     }),
     defineField({

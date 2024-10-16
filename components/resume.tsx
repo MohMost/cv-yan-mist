@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ModeToggle } from "./ThemeToggler";
+import Image from "next/image";
+
 export interface PersonalInfo {
   name: string;
   firstname: string;
@@ -29,6 +31,11 @@ export interface PersonalInfo {
   phone: string;
   linkedin: string;
   location: string;
+  photo: {
+    asset: {
+      url: string;
+    };
+  };
 }
 
 export interface Experience {
@@ -66,8 +73,21 @@ export default function Resume() {
     client
       .fetch(
         `*[_type == "resume"]{
-          personalInfo,
-          profile,
+          personalInfo {
+            name,
+            firstname,
+            title,
+            email,
+            phone,
+            linkedin,
+            location,
+            photo {
+      asset-> {
+        url
+      }
+    }
+          },
+          profile ,
           experience,
           skills,
           education
@@ -89,7 +109,14 @@ export default function Resume() {
           <ModeToggle />
           <CardContent className="p-6 space-y-6">
             <div className="text-center">
-              <div className="w-32 h-32 rounded-full mx-auto mb-4 bg-secondary" />
+              <Image
+                src={`${personalInfo.photo.asset.url}`}
+                alt="profile"
+                className="w-32 h-32 rounded-full mx-auto mb-4 object-contain"
+                width={100}
+                height={100}
+              />
+
               <h1 className="text-3xl font-bold">
                 {personalInfo.name} {personalInfo.firstname}
               </h1>
