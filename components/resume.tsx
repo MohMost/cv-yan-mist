@@ -11,7 +11,6 @@ import {
   Code,
   User,
   GraduationCap,
-  ChevronDown,
 } from "lucide-react";
 import {
   Accordion,
@@ -20,17 +19,9 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { ModeToggle } from "./ThemeToggler";
 
 export default function Resume() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
   return (
     <div className="bg-background min-h-screen p-4 md:p-8 flex justify-center items-start text-foreground">
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-6">
