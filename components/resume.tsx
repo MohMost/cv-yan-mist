@@ -1,6 +1,7 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
 import {
   Mail,
   Phone,
@@ -20,8 +21,66 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ModeToggle } from "./ThemeToggler";
+export interface PersonalInfo {
+  name: string;
+  firstname: string;
+  title: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  location: string;
+}
+
+export interface Experience {
+  jobTitle: string;
+  location: string;
+  dateRange: string;
+  responsibilities: string[];
+}
+
+export interface Skills {
+  softwareSkills: string[];
+  languages: string[];
+}
+
+export interface Education {
+  degree: string;
+  institution: string;
+  location: string;
+  dateRange: string;
+  description: string;
+}
+
+export interface ResumeData {
+  personalInfo: PersonalInfo;
+  profile: string;
+  experience: Experience[];
+  skills: Skills;
+  education: Education[];
+}
 
 export default function Resume() {
+  const [resumeData, setResumeData] = useState<ResumeData | null>(null);
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "resume"]{
+          personalInfo,
+          profile,
+          experience,
+          skills,
+          education
+        }`
+      )
+      .then((data) => setResumeData(data[0]))
+      .catch(console.error);
+  }, []);
+
+  if (!resumeData) return <div>Loading...</div>;
+
+  const { personalInfo, profile, experience, skills, education } = resumeData;
+
   return (
     <div className="bg-background min-h-screen p-4 md:p-8 flex justify-center items-start text-foreground">
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-6">
@@ -31,8 +90,10 @@ export default function Resume() {
           <CardContent className="p-6 space-y-6">
             <div className="text-center">
               <div className="w-32 h-32 rounded-full mx-auto mb-4 bg-secondary" />
-              <h1 className="text-3xl font-bold">Yanis IDIR</h1>
-              <p className="text-xl mt-2">Étudiant en Génie Mécanique</p>
+              <h1 className="text-3xl font-bold">
+                {personalInfo.name} {personalInfo.firstname}
+              </h1>
+              <p className="text-xl mt-2">{personalInfo.title}</p>
             </div>
 
             <div className="space-y-4">
@@ -46,10 +107,10 @@ export default function Resume() {
                     size={18}
                   />
                   <a
-                    href="mailto:Yanis.idir001@gmail.com"
+                    href={`mailto:${personalInfo.email}`}
                     className="hover:underline"
                   >
-                    Yanis.idir001@gmail.com
+                    {personalInfo.email}
                   </a>
                 </li>
                 <li className="flex items-center group">
@@ -57,8 +118,11 @@ export default function Resume() {
                     className="mr-2 group-hover:text-secondary transition-colors duration-300"
                     size={18}
                   />
-                  <a href="tel:+33781644999" className="hover:underline">
-                    +33 7 81 64 49 99
+                  <a
+                    href={`tel:${personalInfo.phone}`}
+                    className="hover:underline"
+                  >
+                    {personalInfo.phone}
                   </a>
                 </li>
                 <li className="flex items-center group">
@@ -67,7 +131,7 @@ export default function Resume() {
                     size={18}
                   />
                   <a
-                    href="https://linkedin.com/in/yanis-i-212bb71b9/"
+                    href={personalInfo.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline"
@@ -80,7 +144,7 @@ export default function Resume() {
                     className="mr-2 group-hover:text-secondary transition-colors duration-300"
                     size={18}
                   />
-                  <span>Marseille, FRANCE</span>
+                  <span>{personalInfo.location}</span>
                 </li>
               </ul>
             </div>
@@ -89,6 +153,7 @@ export default function Resume() {
 
         {/* Right Column - Scrollable */}
         <div className="md:w-2/3 space-y-6">
+          {/* Profil Section */}
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-semibold text-primary flex items-center">
@@ -96,15 +161,11 @@ export default function Resume() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <p>
-                  Étudiant en deuxième année de Master, je souhaite postuler
-                  pour un contrat étudiant afin d&apos;approfondir mon
-                  expérience professionnelle et subvenir à mes besoins.
-                </p>
-              </div>
+              <p>{profile}</p>
             </CardContent>
           </Card>
+
+          {/* Expériences Section */}
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-semibold text-primary flex items-center">
@@ -112,43 +173,23 @@ export default function Resume() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold">
-                  Employé polyvalent au RU du CROUS de Château Gombert
-                </h3>
-                <p className="text-muted-foreground">
-                  Marseille, FRANCE | Sept. 2023 – juillet 2024
-                </p>
-                <ul className="list-disc list-inside mt-2">
-                  <li>J&apos;ai travaillé en plonge principalement</li>
-                  <li>
-                    J&apos;ai effectué des tâches de réapprovisionnement et
-                    nettoyage
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">
-                  Employé polyvalent chez Burger King La Rose
-                </h3>
-                <p className="text-muted-foreground">
-                  Marseille, FRANCE | Sept. 2021 - Dec. 2021
-                </p>
-                <ul className="list-disc list-inside mt-2">
-                  <li>
-                    J&apos;ai travaillé en équipe pour assurer le bon
-                    fonctionnement du restaurant, notamment lors des fermetures
-                    (contrat à 24h/semaine)
-                  </li>
-                  <li>
-                    Mes responsabilités comprenaient la préparation des
-                    aliments, le nettoyage des espaces, l&aposaccueil
-                  </li>
-                </ul>
-              </div>
+              {experience.map((job, index) => (
+                <div key={index}>
+                  <h3 className="text-lg font-semibold">{job.jobTitle}</h3>
+                  <p className="text-muted-foreground">
+                    {job.location} | {job.dateRange}
+                  </p>
+                  <ul className="list-disc list-inside mt-2">
+                    {job.responsibilities.map((task, idx) => (
+                      <li key={idx}>{task}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </CardContent>
           </Card>
 
+          {/* Compétences Section */}
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-semibold text-primary flex items-center">
@@ -160,25 +201,24 @@ export default function Resume() {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Logiciels</h3>
                   <ul className="list-disc list-inside">
-                    <li>Excel, PowerPoint, Word</li>
-                    <li>Photoshop</li>
-                    <li>Logiciels CAO (3D Experience, CATIA, SolidWorks)</li>
-                    <li>Autre (draw.io…)</li>
+                    {skills.softwareSkills.map((skill, idx) => (
+                      <li key={idx}>{skill}</li>
+                    ))}
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Langues</h3>
                   <ul className="list-disc list-inside">
-                    <li>Français: Langue Maternelle</li>
-                    <li>Anglais: Niveau avancé</li>
-                    <li>Arabe: Bon niveau</li>
-                    <li>Kabyle: Langue Maternelle</li>
+                    {skills.languages.map((language, idx) => (
+                      <li key={idx}>{language}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
             </CardContent>
           </Card>
 
+          {/* Formation Section */}
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-semibold text-primary flex items-center">
@@ -187,48 +227,19 @@ export default function Resume() {
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>
-                    Master 1 – Génie Mécanique | Aix Marseille
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-muted-foreground">
-                      Marseille, FRANCE | 2023 - 2024
-                    </p>
-                    <p>
-                      Année validée. Apprentissage par problèmes, cours de CAO,
-                      TP et réalisation de plusieurs projets.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>
-                    Licence 3 SPI – Ingénierie Mécanique | Aix Marseille
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-muted-foreground">
-                      Marseille, FRANCE | 2021 - 2023
-                    </p>
-                    <p>
-                      Année validée. Mécanique des fluides, Thermodynamique,
-                      Vibrations, RDM…
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>
-                    Licence 2 – Génie Mécanique | UMMTO
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-muted-foreground">
-                      Tizi-Ouzou, Algérie | 2019 - 2020
-                    </p>
-                    <p>
-                      Année validée. Mécanique des milieux continus,
-                      Mathématiques, Conception mécanique, mécanique générale…
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
+                {education.map((edu, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>
+                      {edu.degree} | {edu.institution}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <p className="text-muted-foreground">
+                        {edu.location} | {edu.dateRange}
+                      </p>
+                      <p>{edu.description}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
               </Accordion>
             </CardContent>
           </Card>
