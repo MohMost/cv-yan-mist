@@ -288,7 +288,7 @@ export default function Resume() {
                           size={18}
                         />
                         <a
-                          href={`h-full w-full text-neutral-300`}
+                          href={`https://www.google.com/search?client=opera-gx&q=10+rue+Henri+Poincar%C3%A9+-13388+Marseille&sourceid=opera&ie=UTF-8&oe=UTF-8`}
                           className="hover:underline"
                         >
                           10 rue Henri Poincaré -13388 Marseille
