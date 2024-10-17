@@ -159,7 +159,7 @@ export default function Resume() {
     );
 
   return (
-    <div className="bg-background min-h-screen p-4 md:p-8 flex justify-center items-start text-foreground">
+    <div className="bg-background min-h-screen md:p-4 m-4 md:p-8 flex justify-center items-start text-foreground">
       {" "}
       <BoxReveal>
         <div className="w-full max-w-6xl flex flex-col md:flex-row gap-6 z-50  ">
@@ -274,8 +274,9 @@ export default function Resume() {
               <AccordionItem value="education">
                 <AccordionTrigger className="flex text-nowrap text-left  font-semibold text-2xl p-4 border-y-2 border-black dark:border-white hover:text-primary hover:text-3xl">
                   <div className="flex items-center w-2/3">
-                    <Award className="mr-2" />
-                    <h3>Certifications</h3>
+                    <Award className="mr-2 " />
+                    <h3 className="hidden md:block">Certifications</h3>
+                    <h3 className="md:hidden">Diplômes</h3>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="py-4">
@@ -301,13 +302,13 @@ export default function Resume() {
               </AccordionItem>
             </Accordion>
             <div className="flex flex-col space-y-4">
-              <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-y-2 border-black dark:border-white ">
+              <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-b-2 border-black dark:border-white ">
                 Compétences
                 <Wrench className="ml-2" />
               </h2>
               <div>
                 <h3 className="text-lg font-semibold mb-2">Informatique</h3>
-                <div className="flex gap-2 list-disc list-inside">
+                <div className="flex gap-2 list-disc list-inside px-4">
                   {resumeData.skills.softwareSkills.map((skill, idx) => (
                     <div key={idx}>
                       <AnimatedTooltip
