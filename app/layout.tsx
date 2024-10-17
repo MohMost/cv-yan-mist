@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Exo } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import VideoBackground from "@/components/VideoBackground";
 
 const exo = Exo({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -24,7 +25,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          {" "}
+          <VideoBackground>{children}</VideoBackground>
         </ThemeProvider>{" "}
       </body>
     </html>
