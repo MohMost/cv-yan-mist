@@ -225,7 +225,7 @@ export default function Resume() {
                 <Image
                   src={`${resumeData.personalInfo.photo.asset.url}`}
                   alt="profile"
-                  className={`w-52 h-52 mx-auto mb-4 object-cover transition-all hover:scale-105 duration-300 ${
+                  className={`w-52 h-52 mx-auto mb-4 object-cover transition-all hover:scale-105 hover:grayscale-0 duration-300 ${
                     isClicked ? "scale-105 grayscale-0" : "grayscale"
                   }`}
                   width={200}
