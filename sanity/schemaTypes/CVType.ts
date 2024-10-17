@@ -208,5 +208,22 @@ export const resumeType = defineType({
         },
       ],
     }),
+    defineField({
+      name: "intrest",
+      title: "Centres d'intérêt",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Nom du centre d'intérêt",
+              type: "string",
+            }),
+          ],
+        },
+      ],
+    }),
   ],
 });
