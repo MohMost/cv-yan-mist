@@ -96,6 +96,12 @@ export const resumeType = defineType({
       ],
     }),
     defineField({
+      name: "languages",
+      title: "Langues",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({
       name: "skills",
       title: "Compétences",
       type: "object",
@@ -103,20 +109,71 @@ export const resumeType = defineType({
         defineField({
           name: "softwareSkills",
           title: "Compétences Logicielles",
+
           type: "array",
-          of: [{ type: "string" }],
-        }),
-        defineField({
-          name: "languages",
-          title: "Langues",
-          type: "array",
-          of: [{ type: "string" }],
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "name",
+                  title: "Nom de la compétence",
+                  type: "string",
+                },
+                {
+                  name: "logo",
+                  title: "Logo de la compétence",
+                  type: "image",
+                  options: {
+                    hotspot: true, // Permet de sélectionner une partie spécifique de l'image
+                  },
+                },
+              ],
+            },
+          ],
         }),
       ],
     }),
     defineField({
       name: "education",
       title: "Formation",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "degree",
+              title: "Diplôme",
+              type: "string",
+            }),
+            defineField({
+              name: "institution",
+              title: "Établissement",
+              type: "string",
+            }),
+            defineField({
+              name: "location",
+              title: "Localisation",
+              type: "string",
+            }),
+            defineField({
+              name: "dateRange",
+              title: "Période",
+              type: "string",
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "certification",
+      title: "Certifications",
       type: "array",
       of: [
         {

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Exo } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-
+import FlickeringGrid from "@/components/ui/flickering-grid";
 const exo = Exo({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Yanis Idir",
@@ -25,7 +25,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-        </ThemeProvider>
+        </ThemeProvider>{" "}
       </body>
     </html>
   );
