@@ -121,7 +121,7 @@ export default function Resume() {
               <Image
                 src={`${personalInfo.photo.asset.url}`}
                 alt="profile"
-                className="w-32 h-32 rounded-full mx-auto mb-4 object-contain"
+                className="w-32 h-32  mx-auto mb-4 object-contain"
                 width={100}
                 height={100}
               />
