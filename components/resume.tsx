@@ -258,7 +258,7 @@ export default function Resume() {
                   <ul className="flex gap-2 flex-col p-2 ">
                     <li className="flex items-center group">
                       <Mail
-                        className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                        className="mr-2 group-hover:text-primary transition-colors duration-300"
                         size={18}
                       />
                       <a
@@ -270,7 +270,7 @@ export default function Resume() {
                     </li>
                     <li className="flex items-center group">
                       <Phone
-                        className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                        className="mr-2 group-hover:text-primary transition-colors duration-300"
                         size={18}
                       />
                       <a
@@ -281,7 +281,7 @@ export default function Resume() {
                       </a>
                     </li>
                     <li className="flex items-center group">
-                      <LinkedInLogoIcon className="mr-2 group-hover:text-secondary transition-colors duration-300" />
+                      <LinkedInLogoIcon className="mr-2 group-hover:text-primary transition-colors duration-300" />
                       <a
                         href={`${resumeData.personalInfo.linkedin}`}
                         className="hover:underline"
@@ -291,7 +291,7 @@ export default function Resume() {
                     </li>
                     <li className="flex items-center group">
                       <MapPin
-                        className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                        className="mr-2 group-hover:text-primary transition-colors duration-300"
                         size={18}
                       />
                       <a
