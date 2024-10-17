@@ -202,7 +202,7 @@ export default function Resume() {
             </div>
           </div>
           {/* Right Column - Scrollable */}
-          <div className="md:w-2/3 space-y-6 py-32 ">
+          <div className="md:w-2/3 space-y-6 md:py-32 ">
             {/* Profil Section */}
             {/* Expériences Section */}
             <Accordion type="single" collapsible>
