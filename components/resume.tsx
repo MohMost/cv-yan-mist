@@ -230,7 +230,7 @@ export default function Resume() {
                   <div key={index} className="flex gap-2 ">
                     <div className="flex flex-col items-center   ">
                       <Dot />
-                      <div className="w-px h-full bg-[#000000]"></div>
+                      <div className="w-px h-full bg-[#000000] dark:bg-white"></div>
                     </div>
                     <div className="pb-4">
                       <h3 className="text-lg font-semibold">{job.jobTitle}</h3>
@@ -264,7 +264,7 @@ export default function Resume() {
                   <div key={index} className="flex gap-2 ">
                     <div className="flex flex-col items-center   ">
                       <Dot />
-                      <div className="w-px h-full bg-[#000000]"></div>
+                      <div className="w-px h-full bg-[#000000] dark:bg-white"></div>
                     </div>
                     <div className="pb-4">
                       <h3 className="text-lg font-semibold">
@@ -295,7 +295,7 @@ export default function Resume() {
                   <div key={index} className="flex gap-2 ">
                     <div className="flex flex-col items-center   ">
                       <Dot />
-                      <div className="w-px h-full bg-[#000000]"></div>
+                      <div className="w-px h-full bg-[#000000] dark:bg-white"></div>
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">
