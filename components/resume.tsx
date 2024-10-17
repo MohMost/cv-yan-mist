@@ -9,9 +9,11 @@ import {
   MapPin,
   Book,
   Briefcase,
-  Code,
   User,
+  Award,
   GraduationCap,
+  Dot,
+  Wrench,
 } from "lucide-react";
 import {
   Accordion,
@@ -19,7 +21,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { ModeToggle } from "./ThemeToggler";
 import Image from "next/image";
 
@@ -105,10 +107,17 @@ export default function Resume() {
     <div className="bg-background min-h-screen p-4 md:p-8 flex justify-center items-start text-foreground">
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-6">
         {/* Left Column - Sticky */}
-        <Card className="md:w-1/3 bg-primary text-primary-foreground md:sticky md:top-8 md:h-fit md:overflow-auto">
-          <ModeToggle />
-          <CardContent className="p-6 space-y-6">
+        <div className="md:w-1/3   md:sticky md:top-8  md:overflow-auto">
+          <div className="p-6 flex items-center gap-4">
+            <ModeToggle /> Mode
+          </div>
+
+          <div className="p-6 space-y-6">
             <div className="text-center">
+              <h1 className="text-3xl mb-2 font-bold">
+                {personalInfo.name} {personalInfo.firstname}
+              </h1>
+              <p className="text-xl mt-2 mb-2">{personalInfo.title}</p>
               <Image
                 src={`${personalInfo.photo.asset.url}`}
                 alt="profile"
@@ -116,21 +125,24 @@ export default function Resume() {
                 width={100}
                 height={100}
               />
-
-              <h1 className="text-3xl font-bold">
-                {personalInfo.name} {personalInfo.firstname}
-              </h1>
-              <p className="text-xl mt-2">{personalInfo.title}</p>
             </div>
+            <div>
+              <div className="text-2xl mb-2 font-semibold  flex items-center border-y-2 border-black dark:border-white">
+                <Book className="mr-2" /> Profil
+              </div>
 
+              <div className="space-y-4">
+                <p>{profile}</p>
+              </div>
+            </div>
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold flex items-center">
+              <h2 className="text-2xl font-semibold flex items-center border-y-2 border-black dark:border-white">
                 <User className="mr-2" /> Contact
               </h2>
               <ul className="space-y-2">
                 <li className="flex items-center group">
                   <Mail
-                    className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                    className="mr-2 group-hover:text-primary transition-colors duration-300"
                     size={18}
                   />
                   <a
@@ -142,7 +154,7 @@ export default function Resume() {
                 </li>
                 <li className="flex items-center group">
                   <Phone
-                    className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                    className="mr-2 group-hover:text-primary transition-colors duration-300"
                     size={18}
                   />
                   <a
@@ -154,7 +166,7 @@ export default function Resume() {
                 </li>
                 <li className="flex items-center group">
                   <Linkedin
-                    className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                    className="mr-2 group-hover:text-primary transition-colors duration-300"
                     size={18}
                   />
                   <a
@@ -168,108 +180,138 @@ export default function Resume() {
                 </li>
                 <li className="flex items-center group">
                   <MapPin
-                    className="mr-2 group-hover:text-secondary transition-colors duration-300"
+                    className="mr-2 group-hover:text-primary transition-colors duration-300"
                     size={18}
                   />
                   <span>{personalInfo.location}</span>
                 </li>
               </ul>
             </div>
-          </CardContent>
-        </Card>
+            <div className="flex flex-col space-y-4">
+              <h2 className="text-2xl font-semibold flex items-center border-y-2 border-black dark:border-white">
+                <Wrench className="mr-2" /> Compétences
+              </h2>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Informatique</h3>
+                <ul className="list-disc list-inside">
+                  {skills.softwareSkills.map((skill, idx) => (
+                    <li key={idx}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Langues</h3>
+                <ul className="list-disc list-inside">
+                  {skills.languages.map((language, idx) => (
+                    <li key={idx}>{language}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Right Column - Scrollable */}
-        <div className="md:w-2/3 space-y-6">
+        <div className="md:w-2/3 space-y-6 p-6 ">
           {/* Profil Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-primary flex items-center">
-                <Book className="mr-2" /> Profil
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>{profile}</p>
-            </CardContent>
-          </Card>
 
           {/* Expériences Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-primary flex items-center">
-                <Briefcase className="mr-2" /> Expériences Professionnelles
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {experience.map((job, index) => (
-                <div key={index}>
-                  <h3 className="text-lg font-semibold">{job.jobTitle}</h3>
-                  <p className="text-muted-foreground">
-                    {job.location} | {job.dateRange}
-                  </p>
-                  <ul className="list-disc list-inside mt-2">
-                    {job.responsibilities.map((task, idx) => (
-                      <li key={idx}>{task}</li>
-                    ))}
-                  </ul>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="education">
+              <AccordionTrigger className="flex text-nowrap text-left  font-semibold text-2xl p-4 border-y-2 border-black dark:border-white">
+                <div className="flex items-center w-2/3">
+                  <Briefcase className="mr-2" />
+                  <h3>Experience</h3>
                 </div>
-              ))}
-            </CardContent>
-          </Card>
+              </AccordionTrigger>
+              <AccordionContent className="py-4">
+                {" "}
+                {experience.map((job, index) => (
+                  <div key={index} className="flex gap-2 ">
+                    <div className="flex flex-col items-center   ">
+                      <Dot />
+                      <div className="w-px h-full bg-[#000000]"></div>
+                    </div>
+                    <div className="pb-4">
+                      <h3 className="text-lg font-semibold">{job.jobTitle}</h3>
+                      <p className="text-muted-foreground">
+                        {job.location} | {job.dateRange}
+                      </p>
+                      <ul className="list-disc list-inside mt-2">
+                        {job.responsibilities.map((task, idx) => (
+                          <li key={idx}>{task}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
 
           {/* Compétences Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-primary flex items-center">
-                <Code className="mr-2" /> Compétences
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Logiciels</h3>
-                  <ul className="list-disc list-inside">
-                    {skills.softwareSkills.map((skill, idx) => (
-                      <li key={idx}>{skill}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Langues</h3>
-                  <ul className="list-disc list-inside">
-                    {skills.languages.map((language, idx) => (
-                      <li key={idx}>{language}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
 
-          {/* Formation Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-primary flex items-center">
-                <GraduationCap className="mr-2" /> Formation
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="education">
+              <AccordionTrigger className="flex text-nowrap text-left font-semibold text-2xl p-4 border-y-2 border-black dark:border-white">
+                <div className="flex items-center w-2/3">
+                  <GraduationCap className="mr-2 " />
+                  <h3>Education</h3>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="py-4">
                 {education.map((edu, index) => (
-                  <AccordionItem key={index} value={`item-${index}`}>
-                    <AccordionTrigger>
-                      {edu.degree} | {edu.institution}
-                    </AccordionTrigger>
-                    <AccordionContent>
+                  <div key={index} className="flex gap-2 ">
+                    <div className="flex flex-col items-center   ">
+                      <Dot />
+                      <div className="w-px h-full bg-[#000000]"></div>
+                    </div>
+                    <div className="pb-4">
+                      <h3 className="text-lg font-semibold">
+                        {edu.degree} | {edu.institution}
+                      </h3>
+
                       <p className="text-muted-foreground">
                         {edu.location} | {edu.dateRange}
                       </p>
                       <p>{edu.description}</p>
-                    </AccordionContent>
-                  </AccordionItem>
+                    </div>
+                  </div>
                 ))}
-              </Accordion>
-            </CardContent>
-          </Card>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          <Accordion type="single" collapsible>
+            <AccordionItem value="education">
+              <AccordionTrigger className="flex text-nowrap text-left  font-semibold text-2xl p-4 border-y-2 border-black dark:border-white">
+                <div className="flex items-center w-2/3">
+                  <Award className="mr-2" />
+                  <h3>Certifications</h3>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="py-4">
+                {education.map((edu, index) => (
+                  <div key={index} className="flex gap-2 ">
+                    <div className="flex flex-col items-center   ">
+                      <Dot />
+                      <div className="w-px h-full bg-[#000000]"></div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        {edu.degree} | {edu.institution}
+                      </h3>
+
+                      <p className="text-muted-foreground">
+                        {edu.location} | {edu.dateRange}
+                      </p>
+                      <p>{edu.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </div>
