@@ -228,8 +228,8 @@ export default function Resume() {
                   className={`w-52 h-52 mx-auto mb-4 object-cover transition-all hover:scale-105 hover:grayscale-0 duration-300 ${
                     isClicked ? "scale-105 grayscale-0" : "grayscale"
                   }`}
-                  width={200}
-                  height={200}
+                  width={1000}
+                  height={1000}
                   onClick={handleClick}
                 />
               </div>
@@ -423,7 +423,7 @@ export default function Resume() {
               </h2>
               <div>
                 <h3 className="text-lg font-semibold mb-2">Informatique</h3>
-                <div className="flex gap-2 list-disc list-inside px-4">
+                <div className="lg:flex grid grid-cols-5 place-content-center sm:place-content-start gap-2 list-disc list-inside px-4">
                   {resumeData.skills.softwareSkills.map((skill, idx) => (
                     <div key={idx}>
                       <AnimatedTooltip
