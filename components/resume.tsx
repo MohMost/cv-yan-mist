@@ -315,6 +315,53 @@ export default function Resume() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+            <div className="lg:flex hidden flex-col space-y-4">
+              <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-b-2 border-black dark:border-white ">
+                Compétences
+                <Wrench className="ml-2" />
+              </h2>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Informatique</h3>
+                <div className=" grid grid-cols-5 place-content-center sm:place-content-start gap-2 list-disc list-inside px-4">
+                  {resumeData.skills.softwareSkills.map((skill, idx) => (
+                    <div key={idx}>
+                      <AnimatedTooltip
+                        items={[
+                          {
+                            id: idx,
+                            name: skill.name,
+
+                            image: skill.logo.asset.url,
+                          },
+                        ]}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Langues</h3>
+                <ul className="list-disc list-inside">
+                  {resumeData.languages.map((language, idx) => (
+                    <li key={idx}>{language}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="lg:flex hidden flex-col space-y-4">
+              <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-b-2 border-black dark:border-white ">
+                Centres d&apos;intérêt
+                <HandMetal className="ml-2" />
+              </h2>
+
+              <div>
+                <ul className="list-disc list-inside">
+                  {resumeData.intrest.map((item, idx) => (
+                    <li key={idx}>{item.name}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           {/* Right Column - Scrollable */}
           <div className="md:w-2/3 space-y-6 md:py-32 ">
@@ -416,7 +463,7 @@ export default function Resume() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <div className="flex flex-col space-y-4">
+            <div className="flex lg:hidden  flex-col space-y-4">
               <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-b-2 border-black dark:border-white ">
                 Compétences
                 <Wrench className="ml-2" />
@@ -449,7 +496,7 @@ export default function Resume() {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex lg:hidden flex-col space-y-4">
               <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-b-2 border-black dark:border-white ">
                 Centres d&apos;intérêt
                 <HandMetal className="ml-2" />
