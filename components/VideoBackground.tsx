@@ -12,7 +12,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({ children }) => {
 
   useEffect(() => {
     // Update the video source based on the current theme
-    setVideoUrl(theme === "dark" ? "/Dark.mp4" : "/light.mp4");
+    setVideoUrl(theme === "dark" ? "" : "/light.mp4");
   }, [theme]); // Re-run this effect when the theme changes
 
   return (

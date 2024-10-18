@@ -201,12 +201,12 @@ export default function Resume() {
     );
 
   return (
-    <div className=" min-h-screen md:p-4 m-4 md:p-8 flex justify-center items-start text-foreground">
+    <div className=" min-h-screen md:p-4 overflow-visible m-4 md:p-8 flex justify-center items-start text-foreground">
       {" "}
       <BoxReveal>
-        <div className="w-full max-w-6xl flex flex-col md:flex-row gap-6 z-50  ">
+        <div className="w-full max-w-6xl overflow-visible flex flex-col md:flex-row gap-6 z-50  ">
           {/* Left Column - Sticky */}
-          <div className="md:w-1/3   md:sticky md:top-8  md:overflow-auto">
+          <div className="md:w-1/3 overflow-visible  md:sticky md:top-8  ">
             <div className="p-6 flex items-center gap-4">
               <ModeToggle /> {themeUse()}
             </div>
@@ -315,16 +315,16 @@ export default function Resume() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <div className="lg:flex hidden flex-col space-y-4">
+            <div className="lg:flex hidden overflow-visible flex-col space-y-4">
               <h2 className="flex text-nowrap text-left items-center font-semibold text-2xl p-1 border-b-2 border-black dark:border-white ">
                 Compétences
                 <Wrench className="ml-2" />
               </h2>
-              <div>
+              <div className="overflow-visible">
                 <h3 className="text-lg font-semibold mb-2">Informatique</h3>
-                <div className=" grid grid-cols-5 place-content-center sm:place-content-start gap-2 list-disc list-inside px-4">
+                <div className="overflow-visible grid grid-cols-5 place-content-center sm:place-content-start gap-2 list-disc list-inside px-4">
                   {resumeData.skills.softwareSkills.map((skill, idx) => (
-                    <div key={idx}>
+                    <div key={idx} className="overflow-visible">
                       <AnimatedTooltip
                         items={[
                           {
